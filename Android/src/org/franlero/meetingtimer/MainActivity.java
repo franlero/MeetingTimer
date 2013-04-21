@@ -1,13 +1,17 @@
 package org.franlero.meetingtimer;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
 public class MainActivity extends Activity implements OnSeekBarChangeListener {
+	
+	public final static String DURATION = "org.franlero.meetingtimer.DURATION";
 	
 	private SeekBar bar;
 	
@@ -30,6 +34,14 @@ public class MainActivity extends Activity implements OnSeekBarChangeListener {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	/** Called when the user clicks the start button */
+	public void startTimer(View view) {
+	    // Do something in response to button
+		Intent intent = new Intent(this, TimerActivity.class);
+		intent.putExtra(DURATION, duration.getText().toString());
+		startActivity(intent);
 	}
 
 	@Override

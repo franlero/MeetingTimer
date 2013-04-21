@@ -22,6 +22,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="org.franlero.meetingtimer.TimerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_timer"
+            android:parentActivityName="org.franlero.meetingtimer.MainActivity"
+            android:theme="@style/FullscreenTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.franlero.meetingtimer.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

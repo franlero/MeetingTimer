@@ -25,6 +25,7 @@
         android:layout_alignBaseline="@+id/textView1"
         android:layout_alignBottom="@+id/textView1"
         android:layout_alignRight="@+id/seekBar1"
+        android:onClick="startTimer"
         android:text="@string/start_button" />
 
     <EditText
