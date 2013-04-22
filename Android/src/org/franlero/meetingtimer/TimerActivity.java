@@ -61,6 +61,8 @@ public class TimerActivity extends Activity {
 
 	private TextView timerView;
 
+	private boolean timerIsRunning;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -69,7 +71,7 @@ public class TimerActivity extends Activity {
 		setupActionBar();
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-		final View controlsView = findViewById(R.id.fullscreen_content_controls);
+		//final View controlsView = findViewById(R.id.fullscreen_content_controls);
 		final View contentView = findViewById(R.id.fullscreen_content);
 		timerView = (TextView) contentView;
 
@@ -81,12 +83,14 @@ public class TimerActivity extends Activity {
 		mSystemUiHider
 				.setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
 					// Cached values.
+					/*
 					int mControlsHeight;
 					int mShortAnimTime;
-
+					 */
 					@Override
 					@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
 					public void onVisibilityChange(boolean visible) {
+						/*
 						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
 							// If the ViewPropertyAnimator API is available
 							// (Honeycomb MR2 and later), use it to animate the
@@ -110,7 +114,7 @@ public class TimerActivity extends Activity {
 							controlsView.setVisibility(visible ? View.VISIBLE
 									: View.GONE);
 						}
-
+						*/
 						if (visible && AUTO_HIDE) {
 							// Schedule a hide().
 							delayedHide(AUTO_HIDE_DELAY_MILLIS);
@@ -129,12 +133,6 @@ public class TimerActivity extends Activity {
 				}
 			}
 		});
-
-		// Upon interacting with UI controls, delay any scheduled hide()
-		// operations to prevent the jarring behavior of controls going away
-		// while interacting with the UI.
-		findViewById(R.id.dummy_button).setOnTouchListener(
-				mDelayHideTouchListener);
 
 		// Get the message from the intent
 		Intent intent = getIntent();
@@ -162,6 +160,21 @@ public class TimerActivity extends Activity {
 			timerView.setTextColor(Color.RED);
 		}
 	}
+	
+	public void pauseResume(View view) {
+		if (timerIsRunning) {
+			try {
+				timer.wait();
+				timerIsRunning = false;
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			timer.notify();
+			timerIsRunning = true;
+		}
+	}
 
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
@@ -172,6 +185,7 @@ public class TimerActivity extends Activity {
 		// are available.
 		delayedHide(100);
 		timer.start();
+		timerIsRunning = true;
 	}
 
 	/**
