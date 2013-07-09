@@ -1,5 +1,6 @@
 <resources>
 
-    <color name="black_overlay">#66000000</color>
-
+    <color name="black_overlay">#ff000000</color>
+    <color name="text_color">#ff89ff2a</color>
+    <color name="text_alert_color">#ffff7100</color>
 </resources>

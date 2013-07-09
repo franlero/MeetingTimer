@@ -1,12 +1,9 @@
 package org.franlero.meetingtimer;
 
-import org.franlero.meetingtimer.util.SystemUiHider;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -20,6 +17,8 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+
+import org.franlero.meetingtimer.util.SystemUiHider;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -77,9 +76,11 @@ public class TimerActivity extends Activity {
 		//final View controlsView = findViewById(R.id.fullscreen_content_controls);
 		final View contentView = findViewById(R.id.fullscreen_content);
 		timerView = (TextView) contentView;
+        timerView.setTextColor(getResources().getColor(R.color.text_color));
+        timerView.setBackgroundColor(getResources().getColor(R.color.black_overlay));
 
-		// Set up an instance of SystemUiHider to control the system UI for
-		// this activity.
+        // Set up an instance of SystemUiHider to control the system UI for
+        // this activity.
 		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
 				HIDER_FLAGS);
 		mSystemUiHider.setup();
@@ -161,13 +162,12 @@ public class TimerActivity extends Activity {
 	}
 
 	protected void updateTimer(long millisUntilFinished) {
-		// TODO Auto-generated method stub
 		timerView.setText(DateUtils
 				.formatElapsedTime(millisUntilFinished / 1000));
 		if (millisUntilFinished < THRESHOLD) {
-			timerView.setTextColor(Color.RED);
-		}
-	}
+            timerView.setTextColor(getResources().getColor(R.color.text_alert_color));
+        }
+    }
 	
 	public void pauseResume(View view) {
 		if (timerIsRunning) {
@@ -175,7 +175,6 @@ public class TimerActivity extends Activity {
 				timer.wait();
 				timerIsRunning = false;
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
