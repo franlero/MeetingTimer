@@ -25,8 +25,9 @@
         android:onClick="pauseResume"
         android:text="@string/dummy_content"
         android:textColor="#33b5e5"
-        android:textSize="200sp"
-        android:textStyle="bold" />
+        android:textSize="@dimen/textSize"
+        android:textStyle="bold"
+            />
 
     <!--
          This FrameLayout insets its children based on system windows using
