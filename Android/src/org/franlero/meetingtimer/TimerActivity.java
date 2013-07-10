@@ -13,6 +13,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v4.app.NavUtils;
 import android.text.format.DateUtils;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -159,7 +160,13 @@ public class TimerActivity extends Activity {
 			    } catch (Exception e) {}
 			}
 		};
-	}
+
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        System.out.println("Metric: ");
+        System.out.println("density: " + metrics.density);
+        System.out.println("densityDpi: " + metrics.densityDpi);
+        float textsize = timerView.getTextSize();
+    }
 
 	protected void updateTimer(long millisUntilFinished) {
 		timerView.setText(DateUtils
